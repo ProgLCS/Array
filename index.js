@@ -17,6 +17,20 @@ app.post('/produtos', (req,res)=>{
 
     }
 
+    if(!produto.nome || typeof produto.nome != 'string' || produto.nome.trim()==''){
+        return res.status(400).send('Nome do produto é obrigatório e deve ser uma string não vazia.');
+
+    }
+
+    if (produto.preco == undefined || typeof produto.preco != 'number' || produto.preco <=0){
+        return res.status (400).send('Preço deve ser um número positivo.');
+
+    }
+
+    if (produto.quantidade == undefined || !Number.isInteger(produto.quantidade) || produto.quantidade<0){
+        return res.status(400).send('Quantidade deve ser um número inteiro maior ou igual a 0.');
+    } 
+
     produtos.push(produto)
 
     res.send('Produtos cadastrado com sucesso !')
